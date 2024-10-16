@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="joeun.project.dao.JsIUSER_listDao">
+
+	<insert id="insert">
+		INSERT INTO USER_list (user_name,email,user_id,user_pw,tel,gender,birthday,c_date,auth)
+		VALUES (#{user_name},
+		#{email}, #{user_id},
+		#{user_pw},
+		#{tel}, #{gender},
+		#{birthday},
+		sysdate,0)
+	</insert>
+
+	<select id="checkId" parameterType="map"
+		resultType="joeun.project.dto.JsUSER_listDto">
+		select * from USER_list where user_id =
+		#{user_id} and
+		user_pw = #{user_pw}
+	</select>
+
+	<select id="selectByUserId" parameterType="String"
+		resultType="joeun.project.dto.JsUSER_listDto">
+		SELECT user_name, email, user_id,
+		user_pw,
+		tel
+		FROM USER_list
+		WHERE user_id =
+		#{user_id}
+	</select>
+
+	<insert id="insertBiz">
+		insert into
+		biz_partner('biz_no','biz_name','owner','tel','email','biz_pw','c_date','auth')
+		values
+		(#{biz_no},#{biz_name},#{owner},#{tel},#{email},#{biz_pw},sysdate,1)
+	</insert>
+	<delete id="userDelete">
+		delete from USER_list where user_id = #{user_id}
+	</delete>
+	<select id="checkIdExists" parameterType="String" resultType="Integer">
+		select count(*) from USER_list where user_id = #{user_id}
+	</select>
+	<!-- 매페어 없는 클래스를 요청하면 404에라가 뜬다. -->
+
+</mapper>
+
+
+
+
+
+
+
+
+
